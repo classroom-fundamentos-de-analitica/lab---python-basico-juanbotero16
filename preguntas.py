@@ -12,7 +12,6 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
-
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -21,7 +20,13 @@ def pregunta_01():
     214
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    segunda= [int(z[2]) for z in x]
+    sol=sum(segunda)
+    
+
+    
+    return sol
 
 
 def pregunta_02():
@@ -39,7 +44,14 @@ def pregunta_02():
     ]
 
     """
-    return
+    x= open("data.csv", "r").readlines()
+    primera= [(z[0]) for z in x]
+    valores=list(set(primera))
+    lista=[(i,len([b for b in primera if b==i])) for i in valores]
+    lista.sort(key= lambda x:x[0])
+    
+
+    return lista
 
 
 def pregunta_03():
@@ -57,7 +69,12 @@ def pregunta_03():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()   
+    valores=list(set([z[0] for z in x] ))
+    listas= [(z[0], int(z[2])) for z in x]
+    listas=[list(i) for i in listas]
+    lista=sorted([(i,sum([b[1] for b in listas if b[0]==i])) for i in valores], key=lambda x: x[0])  
+    return lista
 
 
 def pregunta_04():
@@ -81,8 +98,23 @@ def pregunta_04():
         ("12", 3),
     ]
 
-    """
-    return
+    """    
+
+
+    x = open("data.csv", "r").readlines()
+    fecha= [z[4:14] for z in x]     
+    meses=[ (x[5:7]) for x in fecha]
+    valores=list(set(meses))
+    lista=[]
+    for i in valores: 
+        c=[b for b in meses if b==i]        
+        c=len(c)        
+        lista.append(((i),c))    
+    lista.sort(key=lambda x: x[0])
+
+    
+
+    return lista
 
 
 def pregunta_05():
@@ -100,7 +132,20 @@ def pregunta_05():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    primera= [z[0] for z in x]   
+    
+    valores=list(set(primera))
+    listas= [(z[0], int(z[2])) for z in x]
+    listas=[list(i) for i in listas]
+     
+    lista=[]
+    for i in valores: 
+        c=[b[1] for b in listas if b[0]==i] 
+        lista.append((i,max(c), min(c)))    
+    lista.sort(key=lambda x: x[0])
+
+    return lista
 
 
 def pregunta_06():
@@ -125,7 +170,31 @@ def pregunta_06():
     ]
 
     """
-    return
+    import re
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x]    
+    pattern = r'\s[a-z]{3}.*'
+    a=[re.findall(pattern, j) for j in x]    
+    a=[x[0].strip() for x in a]
+    lista=[]
+    for i in a:
+        b=i.split(',')
+        for k in b:
+            lista.append(k)
+    lista1=[]    
+    listas=[]
+    for c in lista: 
+        d=c.split(':')
+        lista1.append(d[0])
+        listas.append([d[0], int(d[1])])
+    valores= list(set(lista1))
+    valores.sort()
+    listota=[]
+    for i in valores: 
+        c=[b[1] for b in listas if b[0]==i] 
+        listota.append((i,min(c), max(c)))    
+    return listota
 
 
 def pregunta_07():
@@ -149,7 +218,18 @@ def pregunta_07():
     ]
 
     """
-    return
+
+    x = open("data.csv", "r").readlines()
+    segunda= [int(z[2]) for z in x]     
+    valores=list(set(segunda))
+    valores.sort()
+    listas= [(z[0], int(z[2])) for z in x]
+    listas=[list(i) for i in listas]
+    solucion=[]
+    for i in valores: 
+        b=[x[0] for x in listas if (x[1])==i]
+        solucion.append((i, b))
+    return solucion
 
 
 def pregunta_08():
@@ -174,7 +254,19 @@ def pregunta_08():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    segunda= [int(z[2]) for z in x]     
+    valores=list(set(segunda))
+    valores.sort()
+    listas= [(z[0], int(z[2])) for z in x]
+    listas=[list(i) for i in listas]
+    solucion=[]
+    for i in valores: 
+        b=[x[0] for x in listas if (x[1])==i]
+        b=list(set(b))
+        b.sort()
+        solucion.append((i, b))
+    return solucion
 
 
 def pregunta_09():
@@ -197,7 +289,34 @@ def pregunta_09():
     }
 
     """
-    return
+    import re
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x]    
+    pattern = r'\s[a-z]{3}.*'
+    a=[re.findall(pattern, j) for j in x]    
+    a=[x[0].strip() for x in a]
+    lista=[]
+    for i in a:
+        b=i.split(',')
+        for k in b:
+            lista.append(k)
+    lista1=[]    
+    listas=[]
+    for c in lista: 
+        d=c.split(':')
+        lista1.append(d[0])
+        listas.append([d[0], int(d[1])])
+    valores= list(set(lista1))
+    valores.sort()
+    listota2=[]
+    listota1=[]
+    for i in valores: 
+        c=[b[1] for b in listas if b[0]==i] 
+        listota1.append(i) 
+        listota2.append(len(c))   
+    dicc= dict(zip(listota1, listota2))
+    return dicc
 
 
 def pregunta_10():
@@ -218,7 +337,14 @@ def pregunta_10():
 
 
     """
-    return
+    
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x]    
+
+    sol= [(i[0],i.count(',')-i.count(':')+2, i.count(':')) for i in x]
+
+    return  sol
 
 
 def pregunta_11():
@@ -239,7 +365,25 @@ def pregunta_11():
 
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x] 
+    x=[z.split() for z in x]  
+    x=[(int(z[1]), z[3].split(',')) for z in x] 
+    lista=[]
+    for i in x:
+        lista +=i[1]
+    valores=list(set(lista))
+    valores.sort()
+    cont= []
+
+    for j in valores:
+        b=[m[0] for m in x if j in m[1] ]
+        
+        cont.append(sum(b))
+        
+    dicc= dict(zip(valores, cont))
+    return dicc
 
 
 def pregunta_12():
@@ -257,4 +401,36 @@ def pregunta_12():
     }
 
     """
-    return
+    import re
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\t", " ") for z in x]
+    x = [z.replace("\n", "") for z in x] 
+    x=[z.split() for z in x]      
+    x=[(z[0], z[4].split(',')) for z in x] 
+    primera= [z[0] for z in x]
+    segunda=[z[1] for z in x]
+    sec=[]
+    pattern = r'\d{1,2}'
+    for m in segunda: 
+        a=[(re.findall(pattern, j)) for j in m] 
+        
+        sec.append(a)
+    num=[]
+    for m in sec: 
+        f=[int(d[0]) for d in m]
+        num.append(sum(f))
+    
+    valores= list(set(primera))
+    valores.sort()
+
+    doble=[[num[i], primera[i]] for i in range(len(primera))]
+    sol1=[]
+    sol2=[]
+    for k in valores: 
+        g=[i[0] for i in doble if i[1]==k]
+        sol1.append(k); sol2.append(sum(g))
+
+    dicc= dict(zip(sol1, sol2))
+    return dicc
+    
+print(pregunta_12())
